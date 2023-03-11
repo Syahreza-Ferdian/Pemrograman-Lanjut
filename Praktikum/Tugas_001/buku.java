@@ -1,7 +1,7 @@
 package Praktikum.Tugas_001;
 
 public class buku{
-    public String kategoriBuku;
+    private String kategoriBuku;
     private String penulis;
     private String namaBuku;
     private String jumlahHalaman;

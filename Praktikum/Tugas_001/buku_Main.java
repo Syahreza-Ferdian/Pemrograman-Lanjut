@@ -82,14 +82,12 @@ public class buku_Main {
         bukuN.setKategori(kategoriBuku);
         bukuN.tampilkanKategori();
         for(int i = 0; i < data.length; i++){
-            for(int j = 0; j < data.length; j++){
-                bukuN.setNamaBuku(data[i][0]);
-                bukuN.setNamaPenulis(data[i][1]);
-                bukuN.setJumlahHalaman(data[i][2]);
-                bukuN.setTahunTerbit(data[i][3]);
-                bukuN.setPenerbit(data[i][4]);
-                bukuN.setNomorBuku(String.valueOf(i+1));
-            }
+            bukuN.setNamaBuku(data[i][0]);
+            bukuN.setNamaPenulis(data[i][1]);
+            bukuN.setJumlahHalaman(data[i][2]);
+            bukuN.setTahunTerbit(data[i][3]);
+            bukuN.setPenerbit(data[i][4]);
+            bukuN.setNomorBuku(String.valueOf(i+1));
             bukuN.tampilkan();
         }
     }

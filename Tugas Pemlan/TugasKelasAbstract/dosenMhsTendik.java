@@ -18,7 +18,6 @@ abstract class civitas {
     }
 }
 class mahasiswa extends civitas{
-    final static int MAX_MATKUL = 8;
     protected int SKS, totalSKS;
     protected static int totalMatkulDiambil = 0;
     protected String NIM;
@@ -26,12 +25,13 @@ class mahasiswa extends civitas{
     protected String jurusan;
     protected static ArrayList<Integer>nilai = new ArrayList<Integer>(totalMatkulDiambil);
     protected ArrayList<String>matkul = new ArrayList<String>(totalMatkulDiambil);
-
+    //constructor
     public mahasiswa(){
         nama = "";
         jenisKelamin = "";
         jurusan = "";
-        nilai.add(0);
+        fakultas = "";
+        NIM = "";
     }
     public mahasiswa(String nama, String jenisKelamin, String jurusan, String fakultas, String NIM){
         this.nama = nama;
@@ -40,17 +40,15 @@ class mahasiswa extends civitas{
         this.fakultas = fakultas;
         this.NIM = NIM;
     }
-    // public mahasiswa(String nama, )
-    public int getNilai(String matkul) {
-        int index = 0;
-        for(int i = 0; i < this.matkul.size(); i++){
-            if(this.matkul.get(i).equals(matkul)){
-                index = i;
-                break;
-            }
-            else index = -1;
-        }
-        return (mahasiswa.nilai.get(index) == null) ? 0 : mahasiswa.nilai.get(index);
+    //setter
+    public void setFakultas(String fakultas) {
+        this.fakultas = fakultas;
+    }
+    public void setJurusan(String jurusan) {
+        this.jurusan = jurusan;
+    }
+    public void setNIM(String nIM) {
+        NIM = nIM;
     }
     public void setMatkul(String kodeMatkul) {
         int indexRowMatkul = -1;
@@ -76,9 +74,22 @@ class mahasiswa extends civitas{
             }
         }
     }
+    //getter
+    public int getNilai(String matkul) {
+        int index = 0;
+        for(int i = 0; i < this.matkul.size(); i++){
+            if(this.matkul.get(i).equals(matkul)){
+                index = i;
+                break;
+            }
+            else index = -1;
+        }
+        return (mahasiswa.nilai.get(index) == null) ? 0 : mahasiswa.nilai.get(index);
+    }
     public ArrayList<String> getMatkul() {
         return matkul;
     }
+    //methods
     public void tampilkanDetails(){
         System.out.println("===[DATA MAHASISWA]===");
         System.out.printf("%-25s: %s\n","Nama", this.nama);
@@ -114,7 +125,7 @@ class mahasiswa extends civitas{
                 }
             }
         }
-        System.out.printf("%20s%45d\n", "TOTAL SKS", totalSKS);
+        System.out.printf("%-20s: %d\n", "TOTAL SKS", totalSKS);
         System.out.printf("%-20s: %d\n", "TOTAL MATKUL", totalMatkulDiambil);
     }
     public void emptyIsNull(ArrayList<Integer> nilai){
@@ -126,9 +137,8 @@ class mahasiswa extends civitas{
     }
 }
 class dosen extends civitas{
-    protected String NIDN;
-    // private mahasiswa mahasiswaN;
-
+    private String NIDN;
+    //constructor
     public dosen(){
         NIDN = "";
         nama = "";
@@ -139,7 +149,10 @@ class dosen extends civitas{
         this.NIDN = NIDN;
         this.jenisKelamin = jenisKelamin;
     }
-
+    //setter
+    public void setNIDN(String nIDN) {
+        NIDN = nIDN;
+    }
     public void setNilai(int nilai, Object mahasiswaN, String kodeMatkul) {
         ((mahasiswa)mahasiswaN).emptyIsNull(mahasiswa.nilai);
         if(mahasiswaN instanceof mahasiswa){
@@ -163,18 +176,24 @@ class dosen extends civitas{
         }
         else System.out.println("ERROR: Tidak bisa memberikan nilai kepada selain mahasiswa!");
     }
-
+    //method
     public void lihatDetailMhs(mahasiswa mahasiswaN){
         System.out.println("Berhasil mengambil data mahasiswa tersebut");
         mahasiswaN.tampilkanDetails();
     }
-
+    public void tampilkanDetails(){
+        System.out.println("=====[BIODATA DOSEN]======");
+        System.out.printf("%-20s: %s\n", "Nama", this.nama);
+        System.out.printf("%-20s: %s\n", "Jenis Kelamin", this.jenisKelamin);
+        System.out.printf("%-20s: %s\n", "NIDN", this.NIDN);
+    }
     public void lihatDetailDosen(Object dosenN){
         if(dosenN instanceof dosen){
+            System.out.println("USERINFO: Melihat biodata dosen lain");
             System.out.println("=====[BIODATA DOSEN]======");
             System.out.printf("%-20s: %s\n", "Nama", ((dosen)dosenN).getNama());
             System.out.printf("%-20s: %s\n", "Jenis Kelamin", ((dosen)dosenN).getJenisKelamin());
-            System.out.printf("%-20s: %s\n", "NIDN", this.NIDN);
+            System.out.printf("%-20s: %s\n", "NIDN", ((dosen)dosenN).NIDN);
         }
         else System.out.println("ERROR: Orang tersebut bukan dosen!");
     }
@@ -185,6 +204,7 @@ class tendik extends civitas{
     protected String tugas;
     protected String jamKerja;
     protected String jabatan;
+    //constructor
     public tendik(){
         nama = "";
         jenisKelamin = "";
@@ -204,12 +224,20 @@ class tendik extends civitas{
         this.tugas = tugas;
         this.jabatan = jabatan;
     }
+    //setter
     public void setJabatan(String jabatan) {
         this.jabatan = jabatan;
     }
-    public void setGaji(int gaji) {
-        this.gaji = gaji;
+    public void setIdPegawai(String idPegawai) {
+        this.idPegawai = idPegawai;
     }
+    public void setTugas(String tugas) {
+        this.tugas = tugas;
+    }
+    public void setJamKerja(String jamKerja) {
+        this.jamKerja = jamKerja;
+    }
+    //methods
     public void tampilkanDetails(){
         System.out.println("===[PROFIL TENAGA PENDIDIK]===");
         System.out.printf("%-20s: %s\n", "Nama", this.nama);
@@ -229,7 +257,7 @@ class tendik extends civitas{
     public void setGajiPegawai(Object tendikN, int gaji){
         if(!(this.jabatan == null) && this.jabatan.equalsIgnoreCase("Keuangan")){
             if(tendikN instanceof tendik) {
-                ((tendik)tendikN).setGaji(gaji);
+                ((tendik)tendikN).gaji = gaji;
                 System.out.printf("SUCCESS: Berhasil memberikan gaji untuk tendik a.n. %s\n", ((tendik)tendikN).getNama());
             }
             else System.out.println("ERROR: Anda hanya bisa meng-set gaji ke tendik");
@@ -255,39 +283,20 @@ public class dosenMhsTendik {
     public static void main(String[] args) {
         //Mhs
         mahasiswa mahasiswa1 = new mahasiswa("Syahreza", "Laki-laki", "Teknologi Informasi", "Filkom", "225150701111036");
-        
+        mahasiswa mahasiswa2 = new mahasiswa();
         //Dosen
-        dosen dosen1 = new dosen("Pak Budi", "38918293091", "Laki-laki");
-        dosen dosen2 = new dosen("Pak Doni", "3271630129341", "Laki-laki");
+        dosen dosen1 = new dosen("Pak Budi, S.Kom, M.Kom", "38918293091", "Laki-laki");
+        dosen dosen2 = new dosen("Pak Doni, S.T, M.T, Ph.D", "3271630129341", "Laki-laki");
         //Tendik
         tendik tendik1 = new tendik("Agus", "Laki-laki", "20945", "Menjaga Keamanan");
         tendik tendik2 = new tendik("Slamet", "Laki-laki", "28901", "Menginput data mahasiswa", "Akademik");
         tendik keuangan = new tendik("Agung", "Laki-laki", "20839", "Mengatur Keuangan", "Keuangan");
         //All methods goes here
-
-        // tendik1.tampilkanDetails();
-        // tendik2.tampilkanDetails();
-        // tendik2.inputMatkulMhs(mahasiswa1, "001");
-        // tendik2.inputMatkulMhs(mahasiswa1, "004");
+        // mahasiswa1.setMatkul("001");
+        // mahasiswa1.setMatkul("002");
         // dosen1.setNilai(90, mahasiswa1, "001");
-        // dosen1.setNilai(80, mahasiswa1, "004");
-        // mahasiswa1.setMatkul("006");
-        // mahasiswa1.setMatkul("007");
-        // mahasiswa1.setMatkul("003");
-        // mahasiswa1.setMatkul("008");
-        // mahasiswa1.setMatkul("009");
-        // mahasiswa1.setMatkul("010");
-        // // mahasiswa1.setMatkul("011");
-        // // mahasiswa1.setMatkul("012");
-        // dosen1.setNilai(10, mahasiswa1, "007");
-        // dosen1.setNilai(80, mahasiswa1, "003");
-        // dosen1.setNilai(85, mahasiswa1, "006");
-        // dosen1.setNilai(91, mahasiswa1, "008");
-        // dosen1.setNilai(87, mahasiswa1, "010");
-        // dosen1.setNilai(94, mahasiswa1, "009");
-        // mahasiswa1.tampilkanDetails();
-
-        // keuangan.setGajiPegawai(tendik1, 2500000);
+        // dosen1.setNilai(85, mahasiswa1, "005");
         // tendik1.tampilkanDetails();
-    }   
+
+    }
 }

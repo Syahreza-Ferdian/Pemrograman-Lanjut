@@ -18,12 +18,12 @@ abstract class civitas {
     }
 }
 class mahasiswa extends civitas{
-    protected int SKS, totalSKS;
-    protected static int totalMatkulDiambil = 0;
-    protected String NIM;
-    protected String fakultas;
-    protected String jurusan;
-    protected static ArrayList<Integer>nilai = new ArrayList<Integer>(totalMatkulDiambil);
+    private int SKS, totalSKS;
+    private static int totalMatkulDiambil = 0;
+    private String NIM;
+    private String fakultas;
+    private String jurusan;
+    protected ArrayList<Integer>nilai = new ArrayList<Integer>(totalMatkulDiambil);
     protected ArrayList<String>matkul = new ArrayList<String>(totalMatkulDiambil);
     //constructor
     public mahasiswa(){
@@ -84,7 +84,7 @@ class mahasiswa extends civitas{
             }
             else index = -1;
         }
-        return (mahasiswa.nilai.get(index) == null) ? 0 : mahasiswa.nilai.get(index);
+        return (this.nilai.get(index) == null) ? 0 : this.nilai.get(index);
     }
     public ArrayList<String> getMatkul() {
         return matkul;
@@ -103,8 +103,8 @@ class mahasiswa extends civitas{
         System.out.println();
         System.out.printf("%-25s:\n", "Nilai Matkul");
         for(int i = 0; i < this.matkul.size(); i++){
-            if(i >= mahasiswa.nilai.size()){
-                mahasiswa.nilai.add(null);
+            if(i >= this.nilai.size()){
+                this.nilai.add(null);
             }
             System.out.printf("%-40s = %d\n", matkul.get(i), nilai.get(i));
         }
@@ -154,7 +154,7 @@ class dosen extends civitas{
         NIDN = nIDN;
     }
     public void setNilai(int nilai, Object mahasiswaN, String kodeMatkul) {
-        ((mahasiswa)mahasiswaN).emptyIsNull(mahasiswa.nilai);
+        ((mahasiswa)mahasiswaN).emptyIsNull(((mahasiswa)mahasiswaN).nilai);
         if(mahasiswaN instanceof mahasiswa){
             int indexRowMatkul = -1;
             for(int i = 0; i < dosenMhsTendik.dataMatkul.length; i++){
@@ -168,7 +168,7 @@ class dosen extends civitas{
                 String namaMatkul = dosenMhsTendik.dataMatkul[indexRowMatkul][0];
                 boolean afkhMhsMengambilMatkul = (((mahasiswa)mahasiswaN).cariMatkul(namaMatkul) >= 0) ? true : false;
                 if(afkhMhsMengambilMatkul){
-                    mahasiswa.nilai.set(((mahasiswa)mahasiswaN).cariMatkul(namaMatkul), nilai);
+                    ((mahasiswa)mahasiswaN).nilai.set(((mahasiswa)mahasiswaN).cariMatkul(namaMatkul), nilai);
                     System.out.printf("SUCCESS: Berhasil memberikan nilai %d untuk matkul %s kepada mhs %s\n", nilai, namaMatkul, ((mahasiswa)mahasiswaN).getNama());
                 }
                 else System.out.println("ERROR: Mahasiswa Tidak mengambil matkul tersebut!");
@@ -201,9 +201,8 @@ class dosen extends civitas{
 class tendik extends civitas{
     private int gaji;
     private String idPegawai;
-    protected String tugas;
-    protected String jamKerja;
-    protected String jabatan;
+    private String tugas;
+    private String jabatan;
     //constructor
     public tendik(){
         nama = "";
@@ -233,9 +232,6 @@ class tendik extends civitas{
     }
     public void setTugas(String tugas) {
         this.tugas = tugas;
-    }
-    public void setJamKerja(String jamKerja) {
-        this.jamKerja = jamKerja;
     }
     //methods
     public void tampilkanDetails(){
@@ -292,11 +288,11 @@ public class dosenMhsTendik {
         tendik tendik2 = new tendik("Slamet", "Laki-laki", "28901", "Menginput data mahasiswa", "Akademik");
         tendik keuangan = new tendik("Agung", "Laki-laki", "20839", "Mengatur Keuangan", "Keuangan");
         //All methods goes here
-        // mahasiswa1.setMatkul("001");
-        // mahasiswa1.setMatkul("002");
-        // dosen1.setNilai(90, mahasiswa1, "001");
-        // dosen1.setNilai(85, mahasiswa1, "005");
+        mahasiswa1.setMatkul("004");
+        mahasiswa1.setMatkul("005");
+        // dosen1.setNilai(90, mahasiswa1, "004");
+        dosen1.setNilai(85, mahasiswa1, "005");
         // tendik1.tampilkanDetails();
-
+        mahasiswa1.tampilkanDetails();
     }
 }

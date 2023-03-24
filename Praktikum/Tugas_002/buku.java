@@ -46,6 +46,9 @@ public class buku{
     public void setPenerbit(String penerbit) {
         this.penerbit = penerbit;
     }
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
+    }
 
     //methods
     public void tampilkanKategori(){
@@ -77,16 +80,16 @@ public class buku{
     public buku copy(buku asal){
         return new buku(asal.kategoriBuku, asal.penulis, asal.namaBuku, asal.jumlahHalaman, asal.nomorBuku, asal.tahunTerbit, asal.penerbit, asal.sinopsis);
     }
-    public void tampilkanCopy(buku tujuan){
+    public void tampilkanCopy(){
         System.out.println("====[Menampilkan hasil copy-an]====");
-        System.out.printf("1. Kategori\t\t: %s\n", tujuan.kategoriBuku);
-        System.out.printf("2. Nomor Buku\t\t: %s\n", tujuan.nomorBuku);
-        System.out.printf("3. Nama Buku\t\t: %s\n", tujuan.namaBuku);
-        System.out.printf("4. Penulis\t\t: %s\n", tujuan.penulis);
-        System.out.printf("5. Jumlah Halaman\t: %s\n", tujuan.jumlahHalaman);
-        System.out.printf("6. Tahun Terbit\t\t: %s\n", tujuan.tahunTerbit);
-        System.out.printf("7. Nama Penerbit\t: %s\n", tujuan.penerbit);
-        System.out.printf("8. Sinopsis\t\t: %s\n", tujuan.sinopsis);
-        System.out.printf("%23s\t: %d\n", "Jumlah Kata Sinopsis",hitungJmlKata(tujuan.sinopsis));
+        System.out.printf("1. Kategori\t\t: %s\n", this.kategoriBuku);
+        System.out.printf("2. Nomor Buku\t\t: %s\n", this.nomorBuku);
+        System.out.printf("3. Nama Buku\t\t: %s\n", this.namaBuku);
+        System.out.printf("4. Penulis\t\t: %s\n", this.penulis);
+        System.out.printf("5. Jumlah Halaman\t: %s\n", this.jumlahHalaman);
+        System.out.printf("6. Tahun Terbit\t\t: %s\n", this.tahunTerbit);
+        System.out.printf("7. Nama Penerbit\t: %s\n", this.penerbit);
+        System.out.printf("8. Sinopsis\t\t: %s\n", this.sinopsis);
+        System.out.printf("%23s\t: %d\n", "Jumlah Kata Sinopsis",hitungJmlKata(this.sinopsis));
     }
 }

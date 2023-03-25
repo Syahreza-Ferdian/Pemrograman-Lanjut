@@ -39,7 +39,7 @@ public class hero_Main {
         
         int ronde = 0, countAttack = 0;
         boolean isPlayer1First = (int)(Math.random()*2) == 1 ? true : false;
-        do{
+        while(hero1.getHealth() > 0 && hero2.getHealth() > 0){
             if(countAttack % 2 == 0) {
                 System.out.println("============================================");   
                 System.out.println("============================================");   
@@ -55,7 +55,7 @@ public class hero_Main {
                 countAttack++;
             }
             isPlayer1First = !isPlayer1First;
-        }while(hero1.getHealth() > 0 && hero2.getHealth() > 0);
+        }
 
         String winner = (hero1.getHealth() > hero2.getHealth()) ? hero1.getName() : hero2.getName();
         String loser = (hero1.getHealth() > hero2.getHealth()) ? hero2.getName() : hero1.getName();

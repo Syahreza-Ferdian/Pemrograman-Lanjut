@@ -47,11 +47,11 @@ public class hero {
         System.out.println();
         System.out.printf("%s menyerang sebesar %s\n", this.getName(), Double.toString(this.getAttack()));
         System.out.printf("%s memiliki pertahanan sebesar %s\n", hero2.getName(), Double.toString(hero2.getDefense()));
-        hero2.setHealth(hero2.getHealth() - (this.getAttack() - hero2.getDefense()));
-        if(this.health < 0 || hero2.getHealth() < 0){
-            this.health = 0;
-            hero2.setHealth(0);
-        }
+        if(hero2.getDefense() > this.getAttack()) hero2.setHealth(hero2.getHealth());
+        else hero2.setHealth(hero2.getHealth() - (this.getAttack() - hero2.getDefense()));
+        
+        if(this.health < 0) this.health = 0;
+        if(hero2.getHealth() < 0) hero2.setHealth(0);
         System.out.printf("Health %s saat ini %s\n", hero2.getName(), Double.toString(hero2.getHealth()));
         System.out.println();
     }

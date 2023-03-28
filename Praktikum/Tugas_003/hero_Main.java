@@ -10,6 +10,14 @@ public class hero_Main {
          */
         hero hero1 = playerInput(1);
         hero hero2 = playerInput(2);
+        //INFINITE LOOP PROTECTION
+        if(hero2.getDefense() == hero1.getAttack() && hero2.getAttack() == hero1.getDefense()) {
+            System.out.println("WARNING: Never ending battle!");
+            System.out.println("HINDARI MEMASUKKAN VALUE ATTACK DAN DEFENSE YANG SAMA DENGAN HERO 1");
+            System.out.println("Coba masukkan value lagi di bawah untuk player 2!");
+            hero2 = new hero();
+            hero2 = playerInput(2);
+        }
         
         int ronde = 0, countAttack = 0;
         boolean isPlayer1First = (int)(Math.random()*2) == 1 ? true : false;

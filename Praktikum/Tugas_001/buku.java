@@ -1,4 +1,4 @@
-package Praktikum.Tugas_001;
+package Tugas_001;
 
 public class buku{
     private String kategoriBuku;

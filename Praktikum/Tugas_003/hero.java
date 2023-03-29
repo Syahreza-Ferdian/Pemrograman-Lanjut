@@ -1,4 +1,4 @@
-package Praktikum.Tugas_003;
+package Tugas_003;
 
 public class hero {
     private String name;

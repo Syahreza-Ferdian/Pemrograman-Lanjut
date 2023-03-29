@@ -1,4 +1,4 @@
-package Praktikum.Tugas_003;
+package Tugas_003;
 import java.util.Scanner;
 
 public class hero_Main {

@@ -278,21 +278,21 @@ public class dosenMhsTendik {
                                             {"Statistika", "013", "3"}};
     public static void main(String[] args) {
         //Mhs
-        mahasiswa mahasiswa1 = new mahasiswa("Syahreza", "Laki-laki", "Teknologi Informasi", "Filkom", "225150701111036");
-        mahasiswa mahasiswa2 = new mahasiswa();
-        //Dosen
-        dosen dosen1 = new dosen("Pak Budi, S.Kom, M.Kom", "38918293091", "Laki-laki");
-        dosen dosen2 = new dosen("Pak Doni, S.T, M.T, Ph.D", "3271630129341", "Laki-laki");
-        //Tendik
-        tendik tendik1 = new tendik("Agus", "Laki-laki", "20945", "Menjaga Keamanan");
-        tendik tendik2 = new tendik("Slamet", "Laki-laki", "28901", "Menginput data mahasiswa", "Akademik");
-        tendik keuangan = new tendik("Agung", "Laki-laki", "20839", "Mengatur Keuangan", "Keuangan");
-        //All methods goes here
-        mahasiswa1.setMatkul("004");
-        mahasiswa1.setMatkul("005");
-        // dosen1.setNilai(90, mahasiswa1, "004");
-        dosen1.setNilai(85, mahasiswa1, "005");
-        // tendik1.tampilkanDetails();
-        mahasiswa1.tampilkanDetails();
+        // mahasiswa mahasiswa1 = new mahasiswa("Syahreza", "Laki-laki", "Teknologi Informasi", "Filkom", "225150701111036");
+        // mahasiswa mahasiswa2 = new mahasiswa();
+        // //Dosen
+        // dosen dosen1 = new dosen("Pak Budi, S.Kom, M.Kom", "38918293091", "Laki-laki");
+        // dosen dosen2 = new dosen("Pak Doni, S.T, M.T, Ph.D", "3271630129341", "Laki-laki");
+        // //Tendik
+        // tendik tendik1 = new tendik("Agus", "Laki-laki", "20945", "Menjaga Keamanan");
+        // tendik tendik2 = new tendik("Slamet", "Laki-laki", "28901", "Menginput data mahasiswa", "Akademik");
+        // tendik keuangan = new tendik("Agung", "Laki-laki", "20839", "Mengatur Keuangan", "Keuangan");
+        // //All methods goes here
+        // mahasiswa1.setMatkul("004");
+        // mahasiswa1.setMatkul("005");
+        // // dosen1.setNilai(90, mahasiswa1, "004");
+        // dosen1.setNilai(85, mahasiswa1, "005");
+        // // tendik1.tampilkanDetails();
+        // mahasiswa1.tampilkanDetails();
     }
 }

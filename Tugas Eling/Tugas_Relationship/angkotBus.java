@@ -1,4 +1,3 @@
-//INI MASIH COMMIT AWAL, MASIH BANYAK KEKURANGAN, TAR DIBENAHIN
 import java.util.ArrayList;
 
 abstract class mobil{
@@ -45,7 +44,7 @@ class angkot extends mobil{
     }
     public void details(){
         System.out.printf("%-20s: %s\n", "Angkot Nopol", this.noPol);
-        System.out.printf("%-20s: %s\n", "Pengemudi", driver.nama);
+        System.out.printf("%-20s: %s\n", "Pengemudi", (driver.nama == null) ? " " : driver.nama);
         System.out.printf("%-20s: %s\n", "Type Kendaraan", this.tipe);
         System.out.printf("%-20s: %s\n", "Pabrikan", this.manufaktur);
         System.out.printf("%-20s: \n", "Daftar Penumpang");
@@ -67,7 +66,7 @@ class bus extends mobil{
     }
     public void details(){
         System.out.printf("%-20s: %s\n", "Bus Nopol", this.noPol);
-        System.out.printf("%-20s: %s\n", "Pengemudi", driver.nama);
+        System.out.printf("%-20s: %s\n", "Pengemudi", (driver.nama == null) ? " " : driver.nama);
         System.out.printf("%-20s: %s\n", "Type Kendaraan", this.tipe);
         System.out.printf("%-20s: %s\n", "Pabrikan", this.manufaktur);
         System.out.printf("%-20s: \n", "Daftar Penumpang");
@@ -151,10 +150,13 @@ public class angkotBus {
         penumpang2.naik(bus1, penumpang2);
         penumpang3.naik(bus1, penumpang3);
         penumpang4.naik(bus1, penumpang4);
+        penumpang5.naik(bus1, penumpang5);
+        penumpang6.naik(angkot1, penumpang6);
         // angkot1.details();
         // penumpang1.turun(angkot1, penumpang1);
         // angkot1.details();
         System.out.println();
         bus1.details();
+        angkot1.details();
     }
 }

@@ -49,8 +49,8 @@ public class mainObjek1 {
         double tinggiRobot = telapakKakiKiri.getDiameter() + kakiKiri.getPanjang() + badan.getPanjang() + kepala.getDiameter();
 
         System.out.println("=========[HASIL PERHITUNGAN]=========");
-        System.out.printf("%-25s: %.3f\n", "Luas Total Robot", totalLuasRobot);
-        System.out.printf("%-25s: %.3f\n", "Tinggi Badan Robot", tinggiRobot);
+        System.out.printf("%-25s: %.3f cm2\n", "Luas Total Robot", totalLuasRobot);
+        System.out.printf("%-25s: %.3f cm\n", "Tinggi Badan Robot", tinggiRobot);
 
     }
 

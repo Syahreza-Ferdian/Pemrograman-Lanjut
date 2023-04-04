@@ -12,7 +12,7 @@ class mobil{
     }
 }
 class person{
-    String nama;
+    protected String nama;
 
     public person(){
 
@@ -44,9 +44,6 @@ class angkot extends mobil{
     public void setDriver(driverAngkot driverAngkot) {
         this.driverAngkot = driverAngkot;
     }
-    public penumpang[] getDaftarPnp() {
-        return daftarPnp;
-    }
     public void setPenumpang(penumpang pnp) {
         for(int i = 0; i < this.daftarPnp.length; i++){
             if(this.daftarPnp[i] == null){
@@ -67,7 +64,7 @@ class angkot extends mobil{
         System.out.println("=====[INFORMASI KENDARAAN]=====");
         System.out.printf("%-20s: %s\n", "Kategori", this.kategori.toUpperCase());
         System.out.printf("%-20s: %s\n", "Nomor Polisi", this.noPol.toUpperCase());
-        System.out.printf("%-20s: %s\n", "Pengemudi", (getDriver() == null) ? " " : getDriver().getNama());
+        System.out.printf("%-20s: %s\n", "Pengemudi", (this.getDriver() == null) ? " " : this.getDriver().getNama());
         System.out.printf("%-20s: %s\n", "Type Kendaraan", this.tipe);
         System.out.printf("%-20s: %s\n", "Pabrikan", this.manufaktur);
         System.out.printf("%-20s: %d %s\n", "Kapasitas", this.kapasitasPnp, "penumpang");
@@ -96,24 +93,6 @@ class bus extends mobil{
         this.kapasitasPnp = kapasitasPnp;
         this.daftarPenumpang = new penumpang[this.kapasitasPnp];
     }
-    public void details(){
-        System.out.println("=====[INFORMASI KENDARAAN]=====");
-        System.out.printf("%-20s: %s\n", "Kategori", this.kategori.toUpperCase());
-        System.out.printf("%-20s: %s\n", "Nomor Polisi", this.noPol.toUpperCase());
-        System.out.printf("%-20s: %s\n", "Pengemudi", (getDriver() == null) ? " " : getDriver().getNama());
-        System.out.printf("%-20s: %s\n", "Type Kendaraan", this.tipe);
-        System.out.printf("%-20s: %s\n", "Pabrikan", this.manufaktur);
-        System.out.printf("%-20s: %d %s\n", "Kapasitas", this.kapasitasPnp, "penumpang");
-        System.out.printf("%-20s: \n", "Daftar Penumpang");
-        boolean isPenumpangAvailable = false;
-        for(int i = 0; i < daftarPenumpang.length; i++){
-            if(daftarPenumpang[i] != null){
-                System.out.printf("%3s %s\n", "-", daftarPenumpang[i].getNama());
-                isPenumpangAvailable = true;
-            }
-        }
-        if(!isPenumpangAvailable) System.out.printf("%3s %s\n", "-", "Tidak ada penumpang di dalam bus :(");
-    }
     public void setDriver(driverBus driverBus) {
         this.driverBus = driverBus;
     }
@@ -136,20 +115,33 @@ class bus extends mobil{
     public driverBus getDriver() {
         return driverBus;
     }
-    public penumpang[] getDaftarPenumpang() {
-        return daftarPenumpang;
+    public void details(){
+        System.out.println("=====[INFORMASI KENDARAAN]=====");
+        System.out.printf("%-20s: %s\n", "Kategori", this.kategori.toUpperCase());
+        System.out.printf("%-20s: %s\n", "Nomor Polisi", this.noPol.toUpperCase());
+        System.out.printf("%-20s: %s\n", "Pengemudi", (this.getDriver() == null) ? " " : this.getDriver().getNama());
+        System.out.printf("%-20s: %s\n", "Type Kendaraan", this.tipe);
+        System.out.printf("%-20s: %s\n", "Pabrikan", this.manufaktur);
+        System.out.printf("%-20s: %d %s\n", "Kapasitas", this.kapasitasPnp, "penumpang");
+        System.out.printf("%-20s: \n", "Daftar Penumpang");
+        boolean isPenumpangAvailable = false;
+        for(int i = 0; i < daftarPenumpang.length; i++){
+            if(daftarPenumpang[i] != null){
+                System.out.printf("%3s %s\n", "-", daftarPenumpang[i].getNama());
+                isPenumpangAvailable = true;
+            }
+        }
+        if(!isPenumpangAvailable) System.out.printf("%3s %s\n", "-", "Tidak ada penumpang di dalam bus :(");
     }
 }
 class driverBus extends person{
-    String licenses;
-    boolean hasSim_B;
+    private boolean hasSim_B;
 
     public driverBus(){
 
     }
     public driverBus(String nama, String SIM){
         this.nama = nama;
-        licenses = SIM;
         this.hasSim_B = SIM.equalsIgnoreCase("B") ? true : false;
     }
     public void narikBus(boolean params, bus b){
@@ -163,19 +155,17 @@ class driverBus extends person{
                 b.setDriver(null);
             }
         }
-        else System.out.println("Maaf, anda tidak diijinkan mengemudi bus karena tidak mempunyai SIM B");
+        else if(hasSim_B == false && params == true) System.out.println("Maaf, anda tidak diijinkan mengemudi bus karena tidak mempunyai SIM B");
     }
 }
 class driverAngkot extends person{
-    String licenses;
-    boolean hasSim_A;
+    private boolean hasSim_A;
     
     public driverAngkot(){
 
     }
     public driverAngkot(String nama, String SIM){
         this.nama = nama;
-        licenses = SIM;
         this.hasSim_A = SIM.equalsIgnoreCase("A") ? true : false;
     }
     public void narikAngkot(boolean params, angkot a){
@@ -220,12 +210,18 @@ class penumpang extends person{
 
 public class angkotBus {
     public static void main(String[] args) {
+        //kendaraan
         angkot angkot1 = new angkot("N 111 GA", "Angkot", "L 300", "Mitsubishi", 20);
         bus bus1 = new bus("B 1564 VGA", "Bus", "OH 1626 NG", "Mercedes-Benz", 40);
+
+        //driver
         driverAngkot driver1 = new driverAngkot("Budi", "a");
         driverBus driver2 = new driverBus("Bayu", "b");
-        driver2.narikBus(true, bus1);
+
+        // driver2.narikBus(true, bus1);
         driver1.narikAngkot(true, angkot1);
+
+        //penumpang
         penumpang penumpang1 = new penumpang("Doni");
         penumpang penumpang2 = new penumpang("Arif");
         penumpang penumpang3 = new penumpang("John");
@@ -236,17 +232,15 @@ public class angkotBus {
         penumpang penumpang8 = new penumpang("Mark");
         penumpang penumpang9 = new penumpang("Slamet");
         // angkot1.tambahPenumpang(penumpang1);
-        penumpang1.naik(angkot1);
-        penumpang2.naik(bus1);
-        penumpang3.naik(bus1);
-        penumpang4.naik(bus1);
-        penumpang5.naik(bus1);
-        penumpang6.naik(angkot1);
 
-        penumpang1.turun(angkot1);
-        penumpang6.turun(angkot1);
+        penumpang1.naik(angkot1);
+        penumpang2.naik(angkot1);
+        penumpang3.naik(angkot1);
+        // penumpang4.naik(bus1);
+        // penumpang5.naik(bus1);
+        penumpang2.turun(angkot1);
+        // bus1.details();
         System.out.println();
-        bus1.details();
         angkot1.details();
     }
 }

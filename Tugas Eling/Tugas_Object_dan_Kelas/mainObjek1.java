@@ -1,6 +1,6 @@
 class lingkaran{
     private double diameter;
-    final double PHI = Math.PI;
+    private final double PHI = Math.PI;
 
     public lingkaran(double diameter){
         this.diameter = diameter;

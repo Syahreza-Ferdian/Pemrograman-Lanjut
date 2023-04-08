@@ -7,7 +7,7 @@ public class hero {
     private double defense;
     //constructor
     public hero(){
-
+        
     }
     public hero(String name, double health, double attack, double defense){
         this.name = name;

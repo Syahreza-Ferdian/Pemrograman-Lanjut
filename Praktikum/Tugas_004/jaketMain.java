@@ -18,7 +18,7 @@ public class jaketMain {
                 case 1:{
                     char type = 'A';
                     while(type <= MAX_JACKET_TYPE){
-                        System.out.printf("%s %-9c: Rp %,3d.00/buah\n", "Tipe Bahan", type, jkt.getJaket(type)[0]);
+                        System.out.printf("%s %-9c: Rp %,3d.00/buah\n", "Tipe Bahan", type, jkt.getHargaJaket(type)[0]);
                         type++;
                     }
                     System.out.println("INFO: Setiap pembelian lebih dari 100 buah jaket, akan mendapatkan potongan harga!");
@@ -34,9 +34,9 @@ public class jaketMain {
                         if(jml <= 0) System.out.println("ERROR: Invalid input!");
                         else{
                             if(jml > 100){
-                                hargaJaket = jkt.getJaket(pilihBahan)[1];
+                                hargaJaket = jkt.getHargaJaket(pilihBahan)[1];
                             }
-                            else hargaJaket = jkt.getJaket(pilihBahan)[0];
+                            else hargaJaket = jkt.getHargaJaket(pilihBahan)[0];
                             System.out.printf("SYSTEM: Berhasil membeli jaket tipe %c\n", pilihBahan);
                             System.out.print(jml > 100 ? "Anda mendapatkan potongan harga karena pembelian lebih dari 100 buah\n" : "");
                             System.out.println("Pesanan anda akan segera diproses\nMasukkan pilihan 3 jika ingin melihat detail pesanan!");

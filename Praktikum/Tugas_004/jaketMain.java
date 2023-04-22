@@ -20,11 +20,14 @@ public class jaketMain {
             switch(pilihan){
                 case 1:{
                     char type = 'A';
+                    System.out.println("==============================================================");
+                    System.out.printf("%7s%4s%19s%8s%19s\n", "TIPE", "|", "HARGA NORMAL", "|", "HARGA DISKON");
                     while(type <= jkt.MAX_JACKET_TYPE){
-                        System.out.printf("%s %-9c: Rp %,3d.00/buah\n", "Tipe Bahan", type, jkt.getHargaJaket(type)[0]);
+                        System.out.printf("%s %-4c%-5sRp %,3d.00/buah%5s%-4sRp %,3d.00/buah\n", "Bahan", type, "|", jkt.getHargaJaket(type)[0], "|", "", jkt.getHargaJaket(type)[1]);
                         type++;
                     }
-                    System.out.println("INFO: Setiap pembelian lebih dari 100 buah jaket, akan mendapatkan potongan harga!");
+                    System.out.println("==============================================================");
+                    System.out.println("\n*INFO: Diskon hanya akan berlaku untuk pembelian di atas 100 buah");
 
                     break;
                 }
@@ -100,19 +103,22 @@ public class jaketMain {
                 }
                 case 4:{
                     int j;
-                    System.out.println("Pending orders: ");
-                    for(j = 0; j < jml.size(); j++){
-                        System.out.printf("%3s%d. Tipe %s (%d buah)\n", "", j+1, pilihBahan.get(j), jml.get(j));
-                    }
-                    System.out.print("Masukkan nomor sesuai list yang ingin di-cancel: ");
-                    int hapus = scanner.nextInt();
-                    if(hapus < 1 || hapus > (j + 1)) System.out.println("ERROR: Invalid input!");
+                    if(jml.isEmpty() || pilihBahan.isEmpty()) System.out.println("ERROR: Anda tidak memiliki pesanan jaket!\nPilih 2 untuk melakukan pemesanan.");
                     else{
-                        //nek inputan valid, hapus siji siji array list sesuai index e
-                        pilihBahan.remove(hapus - 1);
-                        jml.remove(hapus - 1);
-                        hargaJaket.remove(hapus - 1);
-                        System.out.printf("Order nomor %d berhasil di-cancel\n", hapus);
+                        System.out.println("List Pembelian: ");
+                        for(j = 0; j < jml.size(); j++){
+                            System.out.printf("%3s%d. Tipe %s (%d buah)\n", "", j+1, pilihBahan.get(j), jml.get(j));
+                        }
+                        System.out.print("Masukkan nomor sesuai list yang ingin di-cancel: ");
+                        int hapus = scanner.nextInt();
+                        if(hapus < 1 || hapus > (j + 1)) System.out.println("ERROR: Invalid input!");
+                        else{
+                            //nek inputan valid, hapus siji siji array list sesuai index e
+                            pilihBahan.remove(hapus - 1);
+                            jml.remove(hapus - 1);
+                            hargaJaket.remove(hapus - 1);
+                            System.out.printf("Order nomor %d berhasil di-cancel\n", hapus);
+                        }
                     }
                     break;
                 }

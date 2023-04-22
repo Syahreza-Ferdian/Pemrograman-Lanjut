@@ -5,14 +5,15 @@ import java.util.Scanner;
 public class jaketMain {
     private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        int pilihan, i = -1;
+        final int MAX_PILIHAN_MENU = 5; //termasuk exit
+        int pilihan;
         ArrayList<Integer> jml = new ArrayList<>();
         ArrayList<Character> pilihBahan = new ArrayList<>();
         ArrayList<Integer> hargaJaket = new ArrayList<>();
         jaket jkt = new jaket();
         do {
             System.out.println("\nMenu Program: ");
-            System.out.println("1. Lihat Jenis Jaket & Harganya\n2. Pembelian Jaket\n3. Lihat detail pembelian\n4. Keluar");
+            System.out.println("1. Lihat Jenis Jaket & Harganya\n2. Pembelian Jaket\n3. Lihat detail pembelian\n4. Cancel pembelian\n5. Keluar");
             System.out.print("Pilihan Anda: ");
             pilihan = scanner.nextInt();
             scanner.nextLine();
@@ -24,6 +25,7 @@ public class jaketMain {
                         type++;
                     }
                     System.out.println("INFO: Setiap pembelian lebih dari 100 buah jaket, akan mendapatkan potongan harga!");
+
                     break;
                 }
                 case 2:{
@@ -34,7 +36,7 @@ public class jaketMain {
                         System.out.print("Masukkan jumlah jaket yang ingin dipesan: ");
                         int inputJumlah = scanner.nextInt();
                         if(inputJumlah <= 0) System.out.println("ERROR: Value tidak bisa kurang dari atau sama dengan nol!");
-                        else if(pilihBahan.contains(inputBahan)){
+                        else if(pilihBahan.contains(inputBahan)){ //nek semisal wis pernah order tipe kwi sakdurunge
                             System.out.printf("WARNING: Anda sudah melakukan pemesanan tipe jaket tersebut (jumlah pemesanan : %d buah). Apakah Anda ingin: \n", jml.get(pilihBahan.indexOf(inputBahan)));
                             System.out.println("1. Rubah pesanan sebelumnya");
                             System.out.println("2. Tambahkan jumlah pada pesanan sebelumnya");
@@ -43,35 +45,37 @@ public class jaketMain {
                             int caseTwoChoice = scanner.nextInt();
                             switch(caseTwoChoice){
                                 case 1:{
-                                    //modifying new value
+                                    //sing lawas langsung diganti sing anyar
                                     jml.set(pilihBahan.indexOf(inputBahan), inputJumlah);
                                     System.out.println("SYSTEM: Jumlah pembelian berhasil dirubah!");
                                     break;
                                 }
                                 case 2: {
-                                    //adding new value to prev. value
+                                    //value sing lawas ditambahke karo value sing anyar
                                     jml.set(pilihBahan.indexOf(inputBahan), jml.get(pilihBahan.indexOf(inputBahan)) + inputJumlah);
                                     System.out.println("SYSTEM: Jumlah pembelian telah berhasil ditambahkan!");
                                     break;
                                 }
-                                case 3: break; //do nothing
+                                case 3: break; //tetep nganggo value sing lawas
                                 default: {
                                     System.out.println("ERROR: Invalid Input!");
                                     break;
                                 }
                             }
-                            //updating the prices
+                            //rego-ne melu di-update ojo lali
                             if(jml.get(pilihBahan.indexOf(inputBahan)) > 100) hargaJaket.set(pilihBahan.indexOf(inputBahan), jkt.getHargaJaket(inputBahan)[1]);
                             else hargaJaket.set(pilihBahan.indexOf(inputBahan), jkt.getHargaJaket(inputBahan)[0]);
                         }
                         else {
-                            i++;
                             jml.add(inputJumlah);
                             pilihBahan.add(inputBahan);
-                            if(jml.get(i) > 100) hargaJaket.add(i, jkt.getHargaJaket(pilihBahan.get(i))[1]);
-                            else hargaJaket.add(i, jkt.getHargaJaket(pilihBahan.get(i))[0]);
-                            System.out.printf("SYSTEM: Berhasil membeli jaket tipe %c\n", pilihBahan.get(i));
-                            System.out.print(jml.get(i) > 100 ? "Anda mendapatkan potongan harga karena pembelian lebih dari 100 buah\n" : "");
+                            int currIndex = jml.indexOf(inputJumlah); //NOTE FOR MYSELF: misal ono bug, kemungkinan bug e nang kene (index ga sync)
+                            
+                            if(jml.get(currIndex) > 100) hargaJaket.add(currIndex, jkt.getHargaJaket(pilihBahan.get(currIndex))[1]);
+                            else hargaJaket.add(currIndex, jkt.getHargaJaket(pilihBahan.get(currIndex))[0]);
+
+                            System.out.printf("SYSTEM: Berhasil membeli jaket tipe %c\n", pilihBahan.get(currIndex));
+                            System.out.print(jml.get(currIndex) > 100 ? "Anda mendapatkan potongan harga karena pembelian lebih dari 100 buah\n" : "");
                             System.out.println("Pesanan anda akan segera diproses\nMasukkan pilihan 3 jika ingin melihat detail pesanan!");
                         }
                     }
@@ -94,12 +98,30 @@ public class jaketMain {
                     }
                     break;
                 }
+                case 4:{
+                    int j;
+                    System.out.println("Pending orders: ");
+                    for(j = 0; j < jml.size(); j++){
+                        System.out.printf("%3s%d. Tipe %s (%d buah)\n", "", j+1, pilihBahan.get(j), jml.get(j));
+                    }
+                    System.out.print("Masukkan nomor sesuai list yang ingin di-cancel: ");
+                    int hapus = scanner.nextInt();
+                    if(hapus < 1 || hapus > (j + 1)) System.out.println("ERROR: Invalid input!");
+                    else{
+                        //nek inputan valid, hapus siji siji array list sesuai index e
+                        pilihBahan.remove(hapus - 1);
+                        jml.remove(hapus - 1);
+                        hargaJaket.remove(hapus - 1);
+                        System.out.printf("Order nomor %d berhasil di-cancel\n", hapus);
+                    }
+                    break;
+                }
                 default:{
-                    System.out.print(pilihan != 4 ? "ERROR: Invalid input!\n" : "");
+                    System.out.print(pilihan != MAX_PILIHAN_MENU ? "ERROR: Invalid input!\n" : "");
                     break;
                 }
             }
-        } while (pilihan != 4);
+        } while (pilihan != MAX_PILIHAN_MENU);
     }
     public static void showDetailPemesanan(char bahan, int jumlah, int harga){
         System.out.printf("%3s%-20s: %c\n", "", "Jenis Bahan", bahan);

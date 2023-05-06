@@ -1,5 +1,6 @@
 package Tugas_005;
 import java.time.LocalDate;
+import java.time.Period;
 
 public class pekerja extends manusia {
     private double gaji;
@@ -31,12 +32,12 @@ public class pekerja extends manusia {
         return jumlahAnak;
     }
     public double getBonus(){
-        LocalDate dateSkrg = LocalDate.now();
-        int lamaBekerja = dateSkrg.getYear() - tahunMasuk.getYear();
+        Period bedaWaktu = Period.between(tahunMasuk, LocalDate.now());
+        int lamaBekerjaDlmTahun = bedaWaktu.getYears();
         double bonus;
         
-        if(lamaBekerja >= 0 && lamaBekerja < 5) bonus = 0.05 * gaji;
-        else if(lamaBekerja >= 5 && lamaBekerja < 10) bonus = 0.1 * gaji;
+        if(lamaBekerjaDlmTahun >= 0 && lamaBekerjaDlmTahun < 5) bonus = 0.05 * gaji;
+        else if(lamaBekerjaDlmTahun >= 5 && lamaBekerjaDlmTahun < 10) bonus = 0.1 * gaji;
         else bonus = 0.15 * gaji;
 
         return bonus;
@@ -46,17 +47,14 @@ public class pekerja extends manusia {
     }
     @Override
     public double getPendapatan() {
-        // TODO Auto-generated method stub
         return super.getPendapatan() + getBonus() + getGaji();
     }
     @Override
     public double getTunjangan() {
-        // TODO Auto-generated method stub
         return super.getTunjangan() + 20 * jumlahAnak;
     }
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return super.toString() + String.format("%-15s: %d %d %d\n%-15s: %d\n%-15s: %.1f\n", "Tahun Masuk", tahunMasuk.getDayOfMonth(), tahunMasuk.getMonthValue(), tahunMasuk.getYear(), "Jumlah Anak", jumlahAnak, "Gaji", gaji);
     }
 }

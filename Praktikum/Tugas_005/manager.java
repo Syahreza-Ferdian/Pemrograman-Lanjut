@@ -17,12 +17,10 @@ public class manager extends pekerja{
     }
     @Override
     public double getTunjangan() {
-        // TODO Auto-generated method stub
         return super.getTunjangan() + 0.1 * this.getGaji();
     }
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return super.toString() + String.format("%-15s: %s\n", "Departemen", departement);
     }
 }

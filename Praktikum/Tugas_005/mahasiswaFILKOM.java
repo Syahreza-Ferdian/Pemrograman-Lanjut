@@ -49,12 +49,10 @@ public class mahasiswaFILKOM extends manusia{
     }
     @Override
     public double getPendapatan() {
-        // TODO Auto-generated method stub
         return super.getPendapatan() + getBeasiswa();
     }
     @Override
     public String toString() {
-        // TODO Auto-generated method stub
         return super.toString() + String.format("%-15s: %s\n%-15s: %.1f\n%-15s: %s\n", "NIM", nim, "IPK", ipk, "Status", getStatus());
     }
 }

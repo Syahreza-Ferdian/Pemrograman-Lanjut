@@ -1,6 +1,16 @@
+import java.util.*;
+
 class mobil{
     protected String noPol, kategori, tipe, manufaktur;
     protected int kapasitasPnp;
+    //parent constructor that will be used on its children class
+    public mobil(String noPol, String kategori, String tipe, String manufaktur, int kapasitasPnp){
+        this.noPol = noPol;
+        this.kapasitasPnp = kapasitasPnp;
+        this.kategori = kategori;
+        this.tipe = tipe;
+        this.manufaktur = manufaktur;
+    }
     public String getNoPol() {
         return noPol;
     }
@@ -10,13 +20,16 @@ class mobil{
     public int getKapasitasPnp() {
         return kapasitasPnp;
     }
+    public String getTipe() {
+        return tipe;
+    }
+    public String getManufaktur() {
+        return manufaktur;
+    }
 }
 class person{
     protected String nama;
 
-    public person(){
-
-    }
     public person(String nama){
         this.nama = nama;
     }
@@ -31,11 +44,7 @@ class angkot extends mobil{
     private penumpang[] daftarPnp;
 
     public angkot(String noPol, String kategori, String tipe, String manufaktur, int kapasitasPnp){
-        this.noPol = noPol;
-        this.kategori = kategori;
-        this.tipe = tipe;
-        this.manufaktur = manufaktur;
-        this.kapasitasPnp = kapasitasPnp;
+        super(noPol, kategori, tipe, manufaktur, kapasitasPnp); //calling out parent class constructor
         this.daftarPnp = new penumpang[this.kapasitasPnp];
     }
     public driverAngkot getDriver() {
@@ -86,11 +95,7 @@ class bus extends mobil{
     private penumpang[] daftarPenumpang;
 
     public bus(String noPol,String kategori, String tipe, String manufaktur, int kapasitasPnp){
-        this.kategori = kategori;
-        this.noPol = noPol;
-        this.tipe = tipe;
-        this.manufaktur = manufaktur;
-        this.kapasitasPnp = kapasitasPnp;
+        super(noPol, kategori, tipe, manufaktur, kapasitasPnp); //calling out parent class constructor
         this.daftarPenumpang = new penumpang[this.kapasitasPnp];
     }
     public void setDriver(driverBus driverBus) {
@@ -137,21 +142,18 @@ class bus extends mobil{
 class driverBus extends person{
     private boolean hasSim_B;
 
-    public driverBus(){
-
-    }
     public driverBus(String nama, String SIM){
-        this.nama = nama;
+        super(nama);
         this.hasSim_B = SIM.equalsIgnoreCase("B") ? true : false;
     }
     public void narikBus(boolean params, bus b){
         if(this.hasSim_B){
             if(params) {
-                System.out.printf("Driver bus dengan nama %s siap mengemudi\n", this.nama);
+                // System.out.printf("Driver bus dengan nama %s siap mengemudi bus dengan nopol %s\n", this.nama, b.getNoPol());
                 b.setDriver(this);
             }
             else {
-                System.out.printf("Driver bus dengan nama %s berhenti narik bus\n", this.nama);
+                // System.out.printf("Driver bus dengan nama %s berhenti narik bus\n", this.nama);
                 b.setDriver(null);
             }
         }
@@ -161,21 +163,18 @@ class driverBus extends person{
 class driverAngkot extends person{
     private boolean hasSim_A;
     
-    public driverAngkot(){
-
-    }
     public driverAngkot(String nama, String SIM){
-        this.nama = nama;
+        super(nama);
         this.hasSim_A = SIM.equalsIgnoreCase("A") ? true : false;
     }
     public void narikAngkot(boolean params, angkot a){
         if(hasSim_A){
             if(params) {
-                System.out.printf("Driver angkot dengan nama %s siap mengemudi\n", this.nama);
+                // System.out.printf("Driver angkot dengan nama %s siap mengemudi angkot dengan nopol %s\n", this.nama, a.getNoPol());
                 a.setDriver(this);
             }
             else {
-                System.out.printf("Driver angkot dengan nama %s berhenti narik angkot\n", this.nama);
+                // System.out.printf("Driver angkot dengan nama %s berhenti narik angkot\n", this.nama);
                 a.setDriver(null);
             }
         }
@@ -184,7 +183,7 @@ class driverAngkot extends person{
 }
 class penumpang extends person{
     public penumpang(String nama){
-        this.nama = nama;
+        super(nama);
     }
     public void naik(mobil a){
         if(a instanceof angkot){
@@ -211,36 +210,95 @@ class penumpang extends person{
 public class angkotBus {
     public static void main(String[] args) {
         //kendaraan
-        angkot angkot1 = new angkot("N 111 GA", "Angkot", "L 300", "Mitsubishi", 20);
-        bus bus1 = new bus("B 1564 VGA", "Bus", "OH 1626 NG", "Mercedes-Benz", 40);
+        ArrayList<angkot> angkots = new ArrayList<angkot>();
+        angkots.add(new angkot("N 6969 AAH", "Angkot", "Colt T-120 SS", "Mitsubishi", 22));
+        angkots.add(new angkot("N 111 GA", "Angkot", "L 300", "Mitsubishi", 20));
+        angkots.add(new angkot("N 911 LA", "Angkot", "Hijet 1000", "Daihatsu", 15));
+        angkots.add(new angkot("N 1679 AU", "Angkot", "Kijang Diesel", "Toyota", 12));
+        angkots.add(new angkot("N 8080 YU", "Angkot", "Panther Grand Touring", "Isuzu", 25));
+        
+        ArrayList<bus> buses = new ArrayList<bus>();
+        buses.add(new bus("B 1564 VGA", "Bus", "OH 1626 NG", "Mercedes-Benz", 40));
+        buses.add(new bus("K 7090 DH", "Bus", "OH 1830", "Mercedes-Benz", 35));
+        buses.add(new bus("K 6996 GA", "Bus", "RN 285", "Hino", 50));
+        buses.add(new bus("K 8901 DA", "Bus", "K 360 IB", "Scania", 80));
 
         //driver
-        driverAngkot driver1 = new driverAngkot("Budi", "a");
-        driverBus driver2 = new driverBus("Bayu", "b");
+        ArrayList<driverAngkot> dA = new ArrayList<driverAngkot>();
+        dA.add(new driverAngkot("Budi", "A"));
+        dA.add(new driverAngkot("Agus", "A"));
+        dA.add(new driverAngkot("Setyo", "A"));
+        dA.add(new driverAngkot("Doni", "A"));
+        dA.add(new driverAngkot("Raharjo", "A"));
 
-        // driver2.narikBus(true, bus1);
-        driver1.narikAngkot(true, angkot1);
+        ArrayList<driverBus> dB = new ArrayList<driverBus>();
+        dB.add(new driverBus("Bayu", "B"));
+        dB.add(new driverBus("Slamet", "B"));
+        dB.add(new driverBus("Eko", "B"));
+        dB.add(new driverBus("Suhartoyo", "B"));
+        
+        //set driver pake loop
+        for(int i = 0, j = dA.size() - 1; i < angkots.size() && j >= 0; i++, j--){
+            dA.get(j).narikAngkot(true, angkots.get(i));
+        }
+        
+        for(int i = 0, j = dB.size() - 1; i < buses.size() && j >= 0; i++, j--){
+            dB.get(j).narikBus(true, buses.get(i));
+        }
 
         //penumpang
-        penumpang penumpang1 = new penumpang("Doni");
-        penumpang penumpang2 = new penumpang("Arif");
-        penumpang penumpang3 = new penumpang("John");
-        penumpang penumpang4 = new penumpang("Joseph");
-        penumpang penumpang5 = new penumpang("Jono");
-        penumpang penumpang6 = new penumpang("Eric");
-        penumpang penumpang7 = new penumpang("Paul");
-        penumpang penumpang8 = new penumpang("Mark");
-        penumpang penumpang9 = new penumpang("Slamet");
-        // angkot1.tambahPenumpang(penumpang1);
+        ArrayList<penumpang> penumpangs = new ArrayList<penumpang>();
+        penumpangs.add(new penumpang("Doni"));
+        penumpangs.add(new penumpang("Arif"));
+        penumpangs.add(new penumpang("John"));
+        penumpangs.add(new penumpang("Joseph"));
+        penumpangs.add(new penumpang("Jono"));
+        penumpangs.add(new penumpang("Eric"));
+        penumpangs.add(new penumpang("Paul"));
+        penumpangs.add(new penumpang("Mark"));
+        penumpangs.add(new penumpang("Slamet"));
 
-        penumpang1.naik(angkot1);
-        penumpang2.naik(angkot1);
-        penumpang3.naik(angkot1);
-        // penumpang4.naik(bus1);
-        // penumpang5.naik(bus1);
-        penumpang2.turun(angkot1);
-        // bus1.details();
-        System.out.println();
-        angkot1.details();
+        //print daftar angkot dan bus
+        System.out.println("\nDaftar Angkot: ");
+        int nomor = 0;
+        for (angkot a : angkots) {
+            System.out.printf("%d. %s - %s %s - dikemudikan oleh %s\n", ++nomor, a.noPol, a.manufaktur, a.tipe, a.getDriver().getNama());   
+        }
+
+        System.out.println("\nDaftar Bus: ");
+        nomor = 0;
+        for (bus b : buses) {
+            System.out.printf("%d. %s - %s %s - dikemudikan oleh %s\n", ++nomor, b.noPol, b.manufaktur, b.tipe, b.getDriver().getNama());
+        }
+
+        //DAFTAR ANTRIAN ANGKOT DAN BUS
+        //'.add()' untuk memasukkan kendaraan ke antrian, '.remove()' untuk mensimulasikan kendaraan keluar dari antrian
+        //index nya ga harus kayak di bawah, itu bebas
+        Queue<angkot> antriAngkots = new LinkedList<angkot>();
+        antriAngkots.add(angkots.get(1));
+        antriAngkots.add(angkots.get(2));
+        antriAngkots.add(angkots.get(0));
+        antriAngkots.add(angkots.get(3));
+        antriAngkots.add(angkots.get(4));
+        // antriAngkots.remove();
+
+        System.out.println("\nDaftar Antrian Angkot dan Pengemudinya: ");
+        nomor = 0;
+        for (angkot angkot : antriAngkots) {
+            System.out.printf("%d. Angkot nopol %s - %s\n", ++nomor, angkot.getNoPol(), angkot.getDriver().getNama());
+        }
+
+        Queue<bus> antriBuses = new LinkedList<>();
+        antriBuses.add(buses.get(3));
+        antriBuses.add(buses.get(2));
+        antriBuses.add(buses.get(0));
+        antriBuses.add(buses.get(1));
+        // antriBuses.remove();
+        
+        System.out.println("\nDaftar Antrian Bus dan Pengemudinya: ");
+        nomor = 0;
+        for (bus bus : antriBuses) {
+            System.out.printf("%d. Bus nopol %s - %s\n", ++nomor, bus.getNoPol(), bus.getDriver().getNama());
+        }
     }
 }

@@ -132,7 +132,7 @@ class bus extends mobil{
         boolean isPenumpangAvailable = false;
         for(int i = 0; i < daftarPenumpang.length; i++){
             if(daftarPenumpang[i] != null){
-                System.out.printf("%3s %s\n", "-", daftarPenumpang[i].getNama());
+                System.out.printf("%3s %s duduk di kursi nomor %d\n", "-", daftarPenumpang[i].getNama(), angkotBus.hashMapIterator(angkotBus.penumpangMap, daftarPenumpang[i].getNama()));
                 isPenumpangAvailable = true;
             }
         }
@@ -208,6 +208,7 @@ class penumpang extends person{
 }
 
 public class angkotBus {
+    static HashMap<penumpang, Integer> penumpangMap = new LinkedHashMap<>();
     public static void main(String[] args) {
         //kendaraan
         ArrayList<angkot> angkots = new ArrayList<angkot>();
@@ -248,15 +249,30 @@ public class angkotBus {
 
         //penumpang
         ArrayList<penumpang> penumpangs = new ArrayList<penumpang>();
-        penumpangs.add(new penumpang("Doni"));
-        penumpangs.add(new penumpang("Arif"));
-        penumpangs.add(new penumpang("John"));
-        penumpangs.add(new penumpang("Joseph"));
-        penumpangs.add(new penumpang("Jono"));
-        penumpangs.add(new penumpang("Eric"));
-        penumpangs.add(new penumpang("Paul"));
-        penumpangs.add(new penumpang("Mark"));
-        penumpangs.add(new penumpang("Slamet"));
+
+        //HASHMAP PENUMPANG DAN KURSI YANG DIDUDUKINYA. IMPLEMENTASINYA HANYA BERLAKU DI BUS
+        penumpangMap.put(new penumpang("Doni"), 2);
+        penumpangMap.put(new penumpang("Arif"), 4);
+        penumpangMap.put(new penumpang("John"), 1);
+        penumpangMap.put(new penumpang("Joseph"), 5);
+        penumpangMap.put(new penumpang("Jono"), 7);
+        penumpangMap.put(new penumpang("Eric"), 8);
+        penumpangMap.put(new penumpang("Paul"), 11);
+        penumpangMap.put(new penumpang("Mark"), 15);
+        penumpangMap.put(new penumpang("Slamet"), 17);
+        
+        //Iterasi nilai kunci (key) dari HashMap 'penumpangMap' ke dalam ArrayList 'penumpangs'
+        for (Map.Entry<penumpang, Integer> out : penumpangMap.entrySet()) {
+            penumpangs.add(out.getKey());
+        }
+        //penumpang naik kendaraan
+        penumpangs.get(1).naik(buses.get(3));
+        penumpangs.get(2).naik(buses.get(3));
+        penumpangs.get(0).naik(buses.get(3));
+        penumpangs.get(4).naik(buses.get(3));
+        penumpangs.get(8).naik(buses.get(3));
+        penumpangs.get(6).naik(buses.get(3));
+        penumpangs.get(3).naik(angkots.get(1));
 
         //print daftar angkot dan bus
         System.out.println("\nDaftar Angkot: ");
@@ -300,5 +316,18 @@ public class angkotBus {
         for (bus bus : antriBuses) {
             System.out.printf("%d. Bus nopol %s - %s\n", ++nomor, bus.getNoPol(), bus.getDriver().getNama());
         }
+        buses.get(3).details();
+        // angkots.get(1).details();
+    }
+    //Method utk mencari nama penumpang dalam nilai key HashMap dan me-return nilai value pasangannya
+    public static int hashMapIterator(HashMap<penumpang, Integer> a, String passName){
+        int output = 0;
+        for (Map.Entry<penumpang, Integer> result : a.entrySet()) {
+            if(result.getKey().getNama().equals(passName)){
+                output = result.getValue();
+                break;
+            }
+        }
+        return output;
     }
 }

@@ -53,6 +53,6 @@ public class manusia {
     //methods
     @Override
     public String toString() {
-        return String.format("%-15s: %s\n%-15s: %s\n%-15s: %s\n%-15s: %.1f\n", "Nama", nama, "NIK", nik, "Jenis Kelamin", this.getJenisKelamin(), "Pendapatan", this.getPendapatan());
+        return String.format("%-15s: %s\n%-15s: %s\n%-15s: %s\n%-15s: $%.1f\n", "Nama", nama, "NIK", nik, "Jenis Kelamin", this.getJenisKelamin(), "Pendapatan", this.getPendapatan());
     }
 }

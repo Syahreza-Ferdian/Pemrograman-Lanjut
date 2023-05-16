@@ -36,8 +36,8 @@ public class pekerja extends manusia {
         int lamaBekerjaDlmTahun = bedaWaktu.getYears();
         double bonus;
         
-        if(lamaBekerjaDlmTahun >= 0 && lamaBekerjaDlmTahun < 5) bonus = 0.05 * gaji;
-        else if(lamaBekerjaDlmTahun >= 5 && lamaBekerjaDlmTahun < 10) bonus = 0.1 * gaji;
+        if(lamaBekerjaDlmTahun >= 0 && lamaBekerjaDlmTahun <= 5) bonus = 0.05 * gaji;
+        else if(lamaBekerjaDlmTahun > 5 && lamaBekerjaDlmTahun <= 10) bonus = 0.1 * gaji;
         else bonus = 0.15 * gaji;
 
         return bonus;

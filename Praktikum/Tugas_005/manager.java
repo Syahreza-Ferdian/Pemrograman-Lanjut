@@ -17,7 +17,7 @@ public class manager extends pekerja{
     }
     @Override
     public double getTunjangan() {
-        return super.getTunjangan() + 0.1 * this.getGaji();
+        return super.getTunjangan() + (0.1 * this.getGaji());
     }
     @Override
     public String toString() {

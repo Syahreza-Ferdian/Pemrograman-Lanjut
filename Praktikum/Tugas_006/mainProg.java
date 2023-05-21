@@ -30,6 +30,8 @@ public class mainProg {
 
         for(int i = 0; i < kumpulanKue.length; i++){
             System.out.printf("\n%s\n", kumpulanKue[i]);
+            System.out.printf("%-15s: %s\n", "Jenis Kue", kumpulanKue[i].getClass().getSimpleName().equals("kuePesanan") ? "Kue Pesanan" : "Kue Jadi");
+            
             if(kumpulanKue[i] instanceof kuePesanan){
                 totalBerat += ((kuePesanan) kumpulanKue[i]).getBerat();
                 totalHargaKuePesanan += ((kuePesanan) kumpulanKue[i]).hitungHarga();
@@ -42,7 +44,6 @@ public class mainProg {
                 hargaItemKueTermahal = kumpulanKue[i].hitungHarga();
                 namaKueTermahal = kumpulanKue[i].getNama();
             }
-            System.out.printf("%-15s: %s\n", "Jenis Kue", kumpulanKue[i].getClass().getSimpleName().equals("kuePesanan") ? "Kue Pesanan" : "Kue Jadi");
         }
 
         System.out.println("\n==============[S T A T S]================");

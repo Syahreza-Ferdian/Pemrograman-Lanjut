@@ -6,13 +6,27 @@ public class mainProg {
         double hargaItemKueTermahal = 0;
         String namaKueTermahal = "";
 
-        kue kumpulanKue[] = new kue[6];
+        kue kumpulanKue[] = new kue[20];
         kumpulanKue[0] = new kueJadi("Klepon", 1500, 3);
         kumpulanKue[1] = new kuePesanan("Onde-onde", 2000, 40);
         kumpulanKue[2] = new kuePesanan("Dadar Gulung", 3500, 45);
         kumpulanKue[3] = new kueJadi("Lemper", 2500, 10);
         kumpulanKue[4] = new kuePesanan("Serabi", 7000, 69);
         kumpulanKue[5] = new kuePesanan("Bikang", 4000, 47);
+        kumpulanKue[6] = new kueJadi("Nagasari", 2000, 15);
+        kumpulanKue[7] = new kueJadi("Kue Lumpur", 4000, 12);
+        kumpulanKue[8] = new kuePesanan("Kue Cucur", 5500, 89);
+        kumpulanKue[9] = new kueJadi("Lopis", 4500, 20);
+        kumpulanKue[10] = new kueJadi("Bikang", 3500, 25);
+        kumpulanKue[11] = new kuePesanan("Apem", 3500, 90);
+        kumpulanKue[12] = new kuePesanan("Kue Putu Ayu", 6000, 80);
+        kumpulanKue[13] = new kueJadi("Lumpia", 5000, 30);
+        kumpulanKue[14] = new kuePesanan("Kue Lapis Legit", 3500, 100);
+        kumpulanKue[15] = new kuePesanan("Getuk Lindri", 2000, 50);
+        kumpulanKue[16] = new kueJadi("Molen", 2000, 40);
+        kumpulanKue[17] = new kuePesanan("Misro", 2400, 50);
+        kumpulanKue[18] = new kueJadi("Bika Ambon", 4500, 30);
+        kumpulanKue[19] = new kueJadi("Bolu Kukus", 3000, 40);
 
         for(int i = 0; i < kumpulanKue.length; i++){
             System.out.printf("\n%s\n", kumpulanKue[i]);

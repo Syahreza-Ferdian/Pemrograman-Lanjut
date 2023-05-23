@@ -285,7 +285,7 @@ public class angkotBusModifException {
         //penumpang naik kendaraan
         int indexKendaraan = -1, indexPnp = -1;
         try {
-            indexPnp = Integer.parseInt("wkwkkwkw");
+            indexPnp = 1;
             indexKendaraan = 2;
 
             getPenumpang(indexPnp, penumpangs).naik(buses.get(indexKendaraan));

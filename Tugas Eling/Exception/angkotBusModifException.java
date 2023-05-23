@@ -54,7 +54,7 @@ class angkot extends mobil{
         this.driverAngkot = driverAngkot;
     }
     public void setPenumpang(penumpang pnp) throws Exception {
-        if(this.driverAngkot == null) throw new Exception("ERROR: Bus tidak memiliki driver. Penumpang tidak boleh naik.");
+        if(this.driverAngkot == null) throw new Exception("ERROR: Angkot tidak memiliki driver. Penumpang tidak boleh naik.");
         for(int i = 0; i < this.daftarPnp.length; i++){
             if(this.daftarPnp[i] == null){
                 this.daftarPnp[i] = pnp;
@@ -248,15 +248,15 @@ public class angkotBusModifException {
         dB.add(new driverBus("Eko", "B"));
         dB.add(new driverBus("Suhartoyo", "B"));
         
-        // set driver pake loop
         // Angkot Driver
+        //TODO: comment for-loop supaya general exception (tidak ada driver) bisa jalan
         for(int i = 0, j = dA.size() - 1; i < angkots.size() && j >= 0; i++, j--){
             dA.get(j).narikAngkot(true, angkots.get(i));
         }
         // Bus Driver
-        // for(int i = 0, j = dB.size() - 1; i < buses.size() && j >= 0; i++, j--){
-        //     dB.get(j).narikBus(true, buses.get(i));
-        // }
+        for(int i = 0, j = dB.size() - 1; i < buses.size() && j >= 0; i++, j--){
+            dB.get(j).narikBus(true, buses.get(i));
+        }
 
         //penumpang
         ArrayList<penumpang> penumpangs = new ArrayList<penumpang>();
@@ -273,29 +273,38 @@ public class angkotBusModifException {
         penumpangMap.put(new penumpang("Slamet"), 17);
         penumpangMap.put(new penumpang("Achmad"), 20);
         penumpangMap.put(new penumpang("Sujono"), 21);
-        // penumpangMap.put(null, 18);
+        penumpangMap.put(null, 18); //At index 11, penumpang is NULL
         
         //Iterasi nilai kunci (key) dari HashMap 'penumpangMap' ke dalam ArrayList 'penumpangs'
-        //COMMENT FOR-EACH DI BAWAH UNTUK IMPLEMENTASI ARITHMETIC EXCEPTION, DAN ARRAY INDEX OUT OF BOUND
+        //TODO: COMMENT FOR-EACH DI BAWAH UNTUK IMPLEMENTASI ARITHMETIC EXCEPTION, DAN ARRAY INDEX OUT OF BOUND
         for (Map.Entry<penumpang, Integer> out : penumpangMap.entrySet()) {
             penumpangs.add(out.getKey());
         }
 
         //IMPLEMENTATION OF ARRAY INDEX OUT OF BOUND, NULL POINTER, AND GENERAL EXCEPTION
         //penumpang naik kendaraan
+        int indexKendaraan = -1, indexPnp = -1;
         try {
-            getPenumpang(0, penumpangs).naik(angkots.get(1));
-            // getPenumpang(11, penumpangs).naik(buses.get(1)); // Array Index Out Of Bound
-            // int index = Integer.parseInt("Tect");
-            // getPenumpang(index, penumpangs).naik(buses.get(1));
-            // angkots.get(0).setPenumpang(penumpangs.get(0));
-            // getPenumpang(0, penumpangs).naik(angkots.get(1));
+            indexPnp = Integer.parseInt("wkwkkwkw");
+            indexKendaraan = 2;
+
+            getPenumpang(indexPnp, penumpangs).naik(buses.get(indexKendaraan));
+            getPenumpang(++indexPnp, penumpangs).naik(buses.get(indexKendaraan));
+            getPenumpang(++indexPnp, penumpangs).naik(buses.get(indexKendaraan));
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
         } catch (NullPointerException e){
             System.out.println(e.getMessage());
+        } catch (IndexOutOfBoundsException e){
+            System.out.println("ERROR: Index kendaraan yang Anda masukkan di luar panjang array");
+        } catch (Exception e){
+            System.out.println("ERROR: Terjadi exception yang tidak diketahui");
         } finally{
-            angkots.get(1).details();
+            try {
+                buses.get(indexKendaraan).details();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("ERROR: Index %d di luar panjang array\n", indexKendaraan);
+            }
         }
 
         //IMPLEMENTATION OF ARITHMETIC EXCEPTION (PEMB. DGN 0)
@@ -303,9 +312,9 @@ public class angkotBusModifException {
             double jumlahKendaraan = angkots.size() + buses.size();
             double totalPenumpang = penumpangs.size();
             double perbandingan = jumlahKendaraan/totalPenumpang;
-
-            if(Double.isInfinite(perbandingan)) throw new ArithmeticException("ERROR: Jumlah penumpang 0. Tidak bisa melakukan pembagian dengan 0");
-            System.out.printf("Perbandingan jumlah kendaraan dan penumpang: %.3f\n", perbandingan);
+            
+            if(totalPenumpang == 0) throw new ArithmeticException("\nERROR: Jumlah penumpang 0. Tidak bisa melakukan pembagian dengan 0");
+            System.out.printf("\nINFO: Perbandingan jumlah kendaraan dan penumpang: %.3f\n", perbandingan);
         } catch (ArithmeticException e){
             System.out.println(e.getMessage());
         }

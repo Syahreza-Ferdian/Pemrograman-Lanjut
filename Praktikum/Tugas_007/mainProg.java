@@ -6,8 +6,11 @@ public class mainProg {
     public static void main(String[] args) {
         int userChoice;
         boolean isUserLoggedIn = false;
-        String[][] daftarProduk = {{"Tolak Angin", "3500"}, {"Air Mineral", "4500"}, {"Pulpen", "2000"}, {"Correction Tape", "5000"}, 
-                                    {"Spidol", "8000"}, {"Tinta Spidol", "35000"}, {"Kertas 1 RIM", "120000"}};
+        String[][] daftarProduk = {{"Air Mineral", "4500"}, {"Pulpen", "2000"}, {"Correction Tape", "5000"}, 
+                                    {"Spidol", "8000"}, {"Tinta Spidol", "35000"}, {"Kabel Data", "25000"},
+                                    {"Mouse Geming", "450000"}, {"Steelseries Mechanical Gaming Keyboard", "790000"}, {"Razer Goliathus Control Mousepad", "290000"},
+                                    {"Steelseries Arctis 1 Gaming Headset", "800000"}, {"SanDisk Extreme Pro M.2 NVME 500GB", "1700000"},
+                                    {"GSkill Ripjaws V DDR4 8GB RAM @ 3200Mhz", "450000"}, {"Diecast Innova Reborn Venturer", "1500000"}};
         employee pegawai = null;
         
         do {
@@ -50,8 +53,8 @@ public class mainProg {
                             else if(productChoice != daftarProduk.length + 1){
                                 System.out.print("Masukkan jumlah yang ingin dibeli: ");
                                 int qtty = scanner.nextInt();
-                                pegawai.addInvoice(new invoice(daftarProduk[productChoice - 1][0], qtty, Integer.parseInt(daftarProduk[productChoice - 1][1])));
-                                System.out.println("USERINFO: Produk berhasil ditambahkan!\n");
+                                if(pegawai.getPayableAmount() - Integer.parseInt(daftarProduk[productChoice - 1][1]) * qtty < 0) System.out.println("ERROR: Maaf, Anda tidak memiliki cukup gaji tersisa untuk membeli barang tersebut!\n");
+                                else pegawai.addInvoice(new invoice(daftarProduk[productChoice - 1][0], qtty, Integer.parseInt(daftarProduk[productChoice - 1][1])));
                             }
                             else{
                                 System.out.println("USERINFO: Anda telah mengakhiri belanja.");
@@ -63,7 +66,7 @@ public class mainProg {
                 case 3: 
                     if(!isUserLoggedIn) System.out.println("ERROR: Anda harus login untuk dapat mengakses menu ini!");
                     else{
-                        System.out.println("==========[EMPLOYEE STATS]==========");
+                        System.out.println("=========================[EMPLOYEE STATS]===========================");
                         System.out.println(pegawai);
                         pegawai.getDetailBelanja();
                         System.out.printf("%-18s: Rp %,3d.00\n", "Gaji Akhir", pegawai.getPayableAmount());

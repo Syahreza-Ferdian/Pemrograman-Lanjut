@@ -21,18 +21,23 @@ public class employee implements payable{
         }
         return salaryPerMonth - hutang;
     }
+    public invoice[] getInvoices() {
+        return invoices;
+    }
     public void addInvoice(invoice itemToAdd){
         boolean isMaximum = true;
         if(searchElementByProductName(itemToAdd.getProductName()) != -1){
             int presentIndex = searchElementByProductName(itemToAdd.getProductName());
             invoices[presentIndex].setQuantity(itemToAdd.getQuantity() + invoices[presentIndex].getQuantity());
             isMaximum = false;
+            System.out.println("USERINFO: Berhasil menambahkan jumlah pada pesanan sebelumnya!\n");
         }
         else{
             for(int i = 0; i < invoices.length; i++){
                 if(invoices[i] == null){
                     invoices[i] = itemToAdd;
                     isMaximum = false;
+                    System.out.println("USERINFO: Produk berhasil ditambahkan!\n");
                     break;
                 }
             }
@@ -58,12 +63,12 @@ public class employee implements payable{
         else{
             for(int i = 0; i < invoices.length; i++){
                 if(invoices[i] != null) {
-                    System.out.printf("%3s%d. %-25s Rp %,3d.00\n", "", i+1, String.format("%d buah %s", invoices[i].getQuantity(), invoices[i].getProductName()), invoices[i].getPricePerItem() * invoices[i].getQuantity());
+                    System.out.printf("%3s%d. %-48s Rp %,3d.00\n", "", i+1, String.format("%d buah %s", invoices[i].getQuantity(), invoices[i].getProductName()), invoices[i].getPricePerItem() * invoices[i].getQuantity());
                     totalBelanja += invoices[i].getQuantity() * invoices[i].getPricePerItem();
                 }
             }
-            System.out.printf("%3s===========================================", "");
-            System.out.printf("\n%3s%-28s Rp %,3d.00\n", "", "Total Belanja", totalBelanja);
+            System.out.printf("%3s================================================================", "");
+            System.out.printf("\n%3s%-51s Rp %,3d.00\n", "", "Total Belanja", totalBelanja);
         }
     }
 }

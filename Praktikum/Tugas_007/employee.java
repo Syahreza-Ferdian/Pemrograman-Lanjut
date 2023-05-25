@@ -21,9 +21,6 @@ public class employee implements payable{
         }
         return salaryPerMonth - hutang;
     }
-    public invoice[] getInvoices() {
-        return invoices;
-    }
     public void addInvoice(invoice itemToAdd){
         boolean isMaximum = true;
         if(searchElementByProductName(itemToAdd.getProductName()) != -1){
